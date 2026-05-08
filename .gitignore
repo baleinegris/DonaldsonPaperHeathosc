@@ -44,3 +44,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Ignore everything under data/
+/data/*
+
+# temporary files created by Quarto
+*.quarto_ipynb*

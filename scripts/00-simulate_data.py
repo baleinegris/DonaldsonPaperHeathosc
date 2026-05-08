@@ -1,48 +1,37 @@
 #### Preamble ####
-# Purpose: Simulates a dataset of Australian electoral divisions, including the 
-  # state and party that won each division.
-# Author: Rohan Alexander
-# Date: 26 September 2024
-# Contact: rohan.alexander@utoronto.ca
+# Purpose: Simulates a dataset of Toronto Apartment Building Registration
+# Author: Oscar Heath
+# Date: May 6th 2026
+# Contact: oscar.heath@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-  # - `polars` must be installed (pip install polars)
+  # - `pandas` must be installed (pip install pandas)
   # - `numpy` must be installed (pip install numpy)
 
+import pandas as pd
+import numpy as np
 
 #### Workspace setup ####
-import polars as pl
-import numpy as np
-np.random.seed(853)
+np.random.seed(42)
 
 
-#### Simulate data ####
-# State names
-states = [
-    "New South Wales", "Victoria", "Queensland", "South Australia", 
-    "Western Australia", "Tasmania", "Northern Territory", 
-    "Australian Capital Territory"
-]
+### Simulating data
+num_rows = 5000 # how many rows we are generating
 
-# Political parties
-parties = ["Labor", "Liberal", "Greens", "National", "Other"]
+year_built = np.random.randint(1950, 2026, num_rows) # vector of years built between 1950 and 2026
+num_stories = np.random.randint(1, 50, num_rows) # vector of number of stories between 1 and 50
+num_units = np.random.randint(1, 500, num_rows) # vector of number of units between 1 and 500
+latitudes = np.random.uniform(43.5, 43.8, num_rows) # vector of latitudes in Toronto
+longitudes = np.random.uniform(-79.5, -79.0, num_rows) # vector of longitudes in Toronto
 
-# Probabilities for state and party distribution
-state_probs = [0.25, 0.25, 0.15, 0.1, 0.1, 0.1, 0.025, 0.025]
-party_probs = [0.40, 0.40, 0.05, 0.1, 0.05]
-
-# Generate the data using numpy and polars
-divisions = [f"Division {i}" for i in range(1, 152)]
-states_sampled = np.random.choice(states, size=151, replace=True, p=state_probs)
-parties_sampled = np.random.choice(parties, size=151, replace=True, p=party_probs)
-
-# Create a polars DataFrame
-analysis_data = pl.DataFrame({
-    "division": divisions,
-    "state": states_sampled,
-    "party": parties_sampled
+sim_df = pd.DataFrame({
+    'year_built': year_built,
+    'num_stories': num_stories,
+    'num_units': num_units,
+    'latitudes': latitudes,
+    'longitudes': longitudes
 })
 
 
 #### Save data ####
-analysis_data.write_csv("data/00-simulated_data/simulated_data.csv")
+sim_df.to_csv("../data/00-simulated_data/simulated_data.csv", index=False)

@@ -1,0 +1,29 @@
+---
+title: "Analysis of Apartment Building Registration in Toronto"
+subtitle: "My subtitle if needed"
+author: 
+  - Oscar Heath
+thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+jupyter: donaldson
+---
+
+```{python}
+#| include: false
+#| warning: false
+#| message: false
+import pandas as pd
+import plotly.express as px
+```
+
+# Introduction
+$$
+\begin{aligned}
+\sum\limits_{i=1}^n (y_i - \hat{y}_i)^2
+\end{aligned}
+$$
