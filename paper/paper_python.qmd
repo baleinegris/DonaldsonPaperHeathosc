@@ -1,12 +1,11 @@
 ---
-title: "Analysis of Apartment Building in Toronto"
-subtitle: "My subtitle if needed"
+title: "Analysis of Apartment Building Construction in Toronto"
 author: 
   - Oscar Heath
 thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "As the city of Toronto continues to expand, it demands increasing amounts of housing. However, this demand is not being met, and Toronto faces a significant housing crisis, despite efforts by the city. We analyse the construction of apartment buildings from 1900 to 2020, in an effort to understand the current state of housing development."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -22,8 +21,19 @@ import plotly.express as px
 ```
 
 # Introduction
-$$
-\begin{aligned}
-\sum\limits_{i=1}^n (y_i - \hat{y}_i)^2
-\end{aligned}
-$$
+Following World War II, Toronto experienced a period of prosperity and rapid development [@McGillivray2026]. During this period, the city saw a huge amount of construction, as demand for new housing exploded. The city grew rapidly, and became the largest city in Canad in 1976 [@McGillivray2026]. Since then, it has continued to grow in population, merging dozens of ehtnically diverse communities together into a skyscraper-filled metropolis. However, this development has not come without significant challenges. The rapid construction of housing of the 20th century has not been matched in the 21st century, and Toronto now faces a significant housing crisis. Toronto consistently has a higher rate of low-income households than the rest of Canada or Ontario [@TorontoHousingDataBook2026].
+
+# Data
+
+## Overview
+We use the dataset Apartment Building Evaluation from Open Data Toronto [!Todo cite this], containing information from apartment inspections for buildings registered in RentSafeTO: Apartment Building Standards. 
+RentSafeTO is a bylaw enforcement program founded by the city of Toronto in 2017, and includes all buildings with three or more storeys and 10 or more units. Inspections must occur at least once every two years. The dataset includes information from the inspections themselves, as well as information about the building itself. The inspection method changed in 2023, and so the dataset is downloaded in two parts. For our analysis, we merged the datasets, and for each building we kept only the most recent inspection.
+
+Inspections are conducted by the city each year. A list is made of all buildings requiring an evaluation, the building receives a notice, and a bylaw enforcement is assigned to inspect the building. On the date of the inspction, the officer visits the building, photographing and documenting the state of the building. The details of the inspection are then given to the building, who is required to share them with tenants, as well as being added to the public dataset. As such, there is not ethical concern with using this data, as it is already required to be public. 
+
+## Measurement
+We will primarily use the information about the building for our analysis, which includes the year of construction, number of storeys, and number of units, though we will also analyze the distribution of the building scores for any potential insights.
+
+## Distribution of Data
+
+# Analysis
