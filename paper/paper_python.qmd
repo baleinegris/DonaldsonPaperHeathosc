@@ -23,6 +23,15 @@ import plotly.express as px
 # Introduction
 Following World War II, Toronto experienced a period of prosperity and rapid development [@McGillivray2026]. During this period, the city saw a huge amount of construction, as demand for new housing exploded. The city grew rapidly, and became the largest city in Canad in 1976 [@McGillivray2026]. Since then, it has continued to grow in population, merging dozens of ehtnically diverse communities together into a skyscraper-filled metropolis. However, this development has not come without significant challenges. The rapid construction of housing of the 20th century has not been matched in the 21st century, and Toronto now faces a significant housing crisis. Toronto consistently has a higher rate of low-income households than the rest of Canada or Ontario [@TorontoHousingDataBook2026].
 
+In this analysis, we present a data-driven history of Toronto's housing development, from 1900 to 2020 using data from Open Data Toronto [!Todo cite Open Data Toronto dataset]. We focus only on the construction of apartment buildings, and track their construction over time, as well as their locations and sizes. We find three distinct periods of construction:
+\begin{itemize}
+    \item 1900-1945: Pre-war slow development of apartments in downtown toronto.
+    \item 1945-1975: Post-war boom in construction, characterized by urban sprawl and the construction of mid-sized apartment buildings.
+    \item 1975-2000:
+\end{itemize} 
+
+
+
 # Data
 
 ## Overview

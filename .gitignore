@@ -50,3 +50,6 @@ vignettes/*.pdf
 
 # temporary files created by Quarto
 *.quarto_ipynb*
+
+#.env for Jawg token
+.env
