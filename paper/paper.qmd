@@ -62,6 +62,25 @@ Additionally, we only included buildings built between 1900 and 2020. We justify
 
 # Results
 ## Units Built
+```{python}
+#| label: fig-total-units
+#| fig-cap: "Total Units by Year Built"
+#| echo: false
+
+bin_edges = np.linspace(df["year_built"].min(), df["year_built"].max(), 26)
+bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+df["year_bin"] = pd.cut(df["year_built"], bins=bin_edges, labels=bin_centers, include_lowest=True)
+df_sum_binned = df.groupby("year_bin", observed=True)["units"].sum()
+
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.bar(df_sum_binned.index.astype(float), df_sum_binned.values,
+       width=(bin_edges[1] - bin_edges[0]) * 0.9, color="steelblue", edgecolor="white")
+ax.set_xlabel("Year Built")
+ax.set_ylabel("Total Units")
+ax.set_title("Total Units by Year Built")
+plt.tight_layout()
+plt.show()
+```
 Looking at the construction of apartment units in Toronto over time [@fig-total-units], we distinguish four distinct periods of construction:
 \begin{itemize}
     \item 1900-1945: Pre-war slow development of small apartments in downtown Toronto
@@ -73,31 +92,8 @@ Looking at the construction of apartment units in Toronto over time [@fig-total-
 Studying the distribution of buildings constructed by year ([@fig-total-units]), we see a grim picture being painted: current levels of construction are far lower than they have been historically. Notably, we see a huge boom in construction in the post-war period, peaking in the 70s. This period of immense growth was fueled by favourable tax policies and incentives and rent control (@CCHR, @YorkRental). In the 80s and 90s, the federal government begins to repeal social housing policies, and in 1995, the city stops funding social housing altogether ([@CCHR, @SocialHousing]). This is reflected in the data, as we see a significant drop in construction in the 80s and 90s. Between 1995 and 2005, we see levels of construction that are lower than anything since 1950. However, we see a modest but persistent increase in construction since 2000, seemingly stimulated by new policies and incentives by the city of Toronto. Indeed, in 2010 the city released the Housing Opportunities Toronto plan [@HOT], which aimed to create and repair affordable rental homes, and is extending this program to 2020-2030 under the name HousingTO [@HousingTO].
 
 While the increase in construction since 2000 is promising, it is not nearly enough to match the population growth of the city. The population growth rate of Toronto has consistently been higher than the national average, and it now has over 7 million people [@Toronto7Mil]. Why has the city not been able to keep up with housing demand, as it once did in the 50s? To begin to answer this question, we examined the types and locations of new apartment buildings being constructed today.
-```{python}
-#| label: fig-total-units
-#| fig-cap: "Total Units by Year Built"
-#| echo: false
-
-bin_edges = np.linspace(df["year_built"].min(), df["year_built"].max(), 26)
-bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
-df["year_bin"] = pd.cut(df["year_built"], bins=bin_edges, labels=bin_centers, include_lowest=True)
-df_sum_binned = df.groupby("year_bin", observed=True)["units"].sum()
-
-fig, ax = plt.subplots(figsize=(8, 5))
-ax.bar(df_sum_binned.index.astype(float), df_sum_binned.values,
-       width=(bin_edges[1] - bin_edges[0]) * 0.9, color="steelblue", edgecolor="white")
-ax.set_xlabel("Year Built")
-ax.set_ylabel("Total Units")
-ax.set_title("Total Units by Year Built")
-plt.tight_layout()
-plt.show()
-```
 
 ## A Shift in Building Types
-Plotting the average number of storeys in new buildings, we see that in the modern period there is a trend towards taller buildings with more units ([@fig-avg-storeys, @fig-avg-units]). This indicates a shift from horizontal expansion to vertical expansion, a trend that is echoed in the urban cycle of many cities globally [@Zambon2019]. When stratifying the data by construction era, we see a clear story of urban sprawl [@fig-eras]. In the pre-war we see a concentration of small apartments in the downtown, followed by an explosion of mid-sized apartments in the post-war period, stretching out into the suburbs. We then see a declining suburban construction in the end of the century, and finally a modern focus on a small number of large high-rise apartments, which are somewhat sprinkled across the city, but mainly focused in the downtown. The shift towards vertical expansion is likely due to an increasing scarcity of land in the city after the urban sprawl of the post-war boom. Vertical expansion allows more the city to house more people in the same land footprint.
-
-@fig-eras goes a long way in explaining why the city of Toronto has not been able to build at the rate of the post-war boom: horizontal expansion is not as viable as it was in the 50s, as available land becomes increasingly scarce. The city is now forced to build vertically, a more lengthy and expensive process. The city of Toronto is not able to keep up with demand for housing, nor should it be expected to, given the constraints of vertical expansion.
-
 ```{python}
 #| label: fig-avg-storeys
 #| fig-cap: "Average Number of Stories per Building by Year Built"
@@ -108,7 +104,7 @@ bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 df["year_bin"] = pd.cut(df["year_built"], bins=bin_edges, labels=bin_centers, include_lowest=True)
 df_avg_binned = df.groupby("year_bin", observed=True)["storeys"].mean()
 
-fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(6, 3))
 ax.bar(df_avg_binned.index.astype(float), df_avg_binned.values,
        width=(bin_edges[1] - bin_edges[0]) * 0.9, color="steelblue", edgecolor="white")
 ax.set_xlabel("Year Built")
@@ -126,7 +122,7 @@ bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 df["year_bin"] = pd.cut(df["year_built"], bins=bin_edges, labels=bin_centers, include_lowest=True)
 df_avg_binned = df.groupby("year_bin", observed=True)["units"].mean()
 
-fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(6, 3))
 ax.bar(df_avg_binned.index.astype(float), df_avg_binned.values,
        width=(bin_edges[1] - bin_edges[0]) * 0.9, color="steelblue", edgecolor="white")
 ax.set_xlabel("Year Built")
@@ -135,6 +131,10 @@ ax.set_title("Average Number of Units per Building by Year Built")
 plt.tight_layout()
 plt.show()
 ```
+Plotting the average number of storeys in new buildings, we see that in the modern period there is a trend towards taller buildings with more units ([@fig-avg-storeys, @fig-avg-units]). This indicates a shift from horizontal expansion to vertical expansion, a trend that is echoed in the urban cycle of many cities globally [@Zambon2019]. When stratifying the data by construction era, we see a clear story of urban sprawl [@fig-eras]. In the pre-war we see a concentration of small apartments in the downtown, followed by an explosion of mid-sized apartments in the post-war period, stretching out into the suburbs. We then see a declining suburban construction in the end of the century, and finally a modern focus on a small number of large high-rise apartments, which are somewhat sprinkled across the city, but mainly focused in the downtown. The shift towards vertical expansion is likely due to an increasing scarcity of land in the city after the urban sprawl of the post-war boom. Vertical expansion allows more the city to house more people in the same land footprint.
+
+@fig-eras goes a long way in explaining why the city of Toronto has not been able to build at the rate of the post-war boom: horizontal expansion is not as viable as it was in the 50s, as available land becomes increasingly scarce. The city is now forced to build vertically, a more lengthy and expensive process. The city of Toronto is not able to keep up with demand for housing, nor should it be expected to, given the constraints of vertical expansion.
+
 ```{python}
 #| include: false
 def to_web_mercator(subset):
